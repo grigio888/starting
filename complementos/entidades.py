@@ -19,8 +19,7 @@ class Personagem():
 		self.direita = False
 		self.baixo = False
 		self.esquerda = False
-	
-		
+						
 	def movimentacao(self, chave):
 		if chave[pygame.K_w] or chave[pygame.K_UP]:
 			self.pos_y -= self.velocidade
@@ -123,16 +122,8 @@ class Personagem():
 			transforma = a_esquerda[frame_a_esquerda]
 			self.imagem = pygame.transform.flip(transforma, True, False)
 
-	def detectar_colisao(self, outro_corpo):
-		if self.pos_x > outro_corpo.pos_x + outro_corpo.largura / 4:
-			return False
-		if self.pos_x + self.largura / 4 < outro_corpo.pos_x:
-			return False
-		if self.pos_y > outro_corpo.pos_y + outro_corpo.altura / 4:
-			return False
-		if self.pos_y + self.altura / 4 < outro_corpo.pos_y:
-			return False
-		return True
+	def hitbox(self):
+		return pygame.Rect(self.pos_x + self.altura / 4, self.pos_y + self.altura / 5, 33, 50)
 
 	def desenho(self, lugar):
 		transformado = pygame.transform.scale(self.imagem, (self.largura, self.altura))
@@ -152,7 +143,7 @@ class Inimigo(Personagem):
 		self.a_esquerda = [pygame.image.load('imagens/inimigo/caveira/andando_esquerda_00.png'), pygame.image.load('imagens/inimigo/caveira/andando_esquerda_01.png'), pygame.image.load('imagens/inimigo/caveira/andando_esquerda_02.png'), pygame.image.load('imagens/inimigo/caveira/andando_esquerda_03.png'), pygame.image.load('imagens/inimigo/caveira/andando_esquerda_04.png'), pygame.image.load('imagens/inimigo/caveira/andando_esquerda_05.png'), pygame.image.load('imagens/inimigo/caveira/andando_esquerda_06.png'), pygame.image.load('imagens/inimigo/caveira/andando_esquerda_07.png')]
 
 	def movimentacao(self, tela): 
-		if self.pos_x <= 0:
+		if self.pos_x <= self.largura:
 			self.velocidade = abs(self.velocidade)
 			self.andando = True
 			self.direita = True
@@ -194,7 +185,7 @@ class Bau(Personagem):
 		self.fechado = pygame.image.load('imagens/objetos/bau_fechado.png')
 		self.abrindo = pygame.image.load('imagens/objetos/bau_abrindo.png')
 		self.aberto = pygame.image.load('imagens/objetos/bau_aberto.png')
-
+		
 	def animacao(self):
 		frame_abrindo = 0
 				
@@ -205,10 +196,13 @@ class Bau(Personagem):
 			self.imagem = self.fechado
 		# Abrindo
 		if self.a_abrindo:
-			self.imagem = self.abrindo #[frame_abrindo]
+			self.imagem = self.abrindo
 		# Aberto
 		if self.a_aberto:
 			self.imagem = self.aberto
+
+	def hitbox(self):
+		return pygame.Rect(self.pos_x, self.pos_y, self.largura, self.altura)
 
 	def desenho(self, lugar):
 		transformado = pygame.transform.scale(self.imagem, (self.largura, self.altura))
