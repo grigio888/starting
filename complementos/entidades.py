@@ -1,4 +1,5 @@
 import pygame
+import random
 
 class Personagem():
 
@@ -22,37 +23,41 @@ class Personagem():
 						
 	def movimentacao(self, chave):
 		if chave[pygame.K_w] or chave[pygame.K_UP]:
-			self.pos_y -= self.velocidade
-			self.parado = False
-			self.andando = True
-			self.cima = True
-			self.direita = False
-			self.baixo = False
-			self.esquerda = False
+			if self.pos_y > -14:
+				self.pos_y -= self.velocidade
+				self.parado = False
+				self.andando = True
+				self.cima = True
+				self.direita = False
+				self.baixo = False
+				self.esquerda = False
 		if chave[pygame.K_d] or chave[pygame.K_RIGHT]: # and self.pos_x + self.largura < tela_l_a[1] - self.velocidade:
-			self.pos_x += self.velocidade
-			self.parado = False
-			self.andando = True
-			self.cima = False
-			self.direita = True
-			self.baixo = False
-			self.esquerda = False
+			if self.pos_x < 516:
+				self.pos_x += self.velocidade
+				self.parado = False
+				self.andando = True
+				self.cima = False
+				self.direita = True
+				self.baixo = False
+				self.esquerda = False
 		if chave[pygame.K_s] or chave[pygame.K_DOWN]:
-			self.pos_y += self.velocidade
-			self.parado = False
-			self.andando = True
-			self.cima = False
-			self.direita = False
-			self.baixo = True
-			self.esquerda = False
+			if self.pos_y < 437:
+				self.pos_y += self.velocidade
+				self.parado = False
+				self.andando = True
+				self.cima = False
+				self.direita = False
+				self.baixo = True
+				self.esquerda = False
 		if chave[pygame.K_a] or chave[pygame.K_LEFT]: #and self.pos_x > self.velocidade:
-			self.pos_x -= self.velocidade
-			self.parado = False
-			self.andando = True
-			self.cima = False
-			self.direita = False
-			self.baixo = False
-			self.esquerda = True
+			if self.pos_x > -15:
+				self.pos_x -= self.velocidade
+				self.parado = False
+				self.andando = True
+				self.cima = False
+				self.direita = False
+				self.baixo = False
+				self.esquerda = True
 		if not chave[pygame.K_w] and not chave[pygame.K_UP]:
 			if not chave[pygame.K_d] and not chave[pygame.K_RIGHT]:
 				if not chave[pygame.K_s] and not chave[pygame.K_DOWN]:
@@ -136,20 +141,20 @@ class Inimigo(Personagem):
 		# definindo estados
 		self.parado = False
 		self.andando = True
+		self.cima = False
 		self.direita = True
+		self.baixo = False
 		self.esquerda = False
 		# carregando imagens
 		self.imagem = pygame.image.load('imagens/inimigo/caveira/andando_esquerda_00.png')
 		self.a_esquerda = [pygame.image.load('imagens/inimigo/caveira/andando_esquerda_00.png'), pygame.image.load('imagens/inimigo/caveira/andando_esquerda_01.png'), pygame.image.load('imagens/inimigo/caveira/andando_esquerda_02.png'), pygame.image.load('imagens/inimigo/caveira/andando_esquerda_03.png'), pygame.image.load('imagens/inimigo/caveira/andando_esquerda_04.png'), pygame.image.load('imagens/inimigo/caveira/andando_esquerda_05.png'), pygame.image.load('imagens/inimigo/caveira/andando_esquerda_06.png'), pygame.image.load('imagens/inimigo/caveira/andando_esquerda_07.png')]
 
 	def movimentacao(self, tela): 
-		if self.pos_x <= self.largura:
-			self.velocidade = abs(self.velocidade)
+		if self.velocidade > 0:
 			self.andando = True
 			self.direita = True
 			self.esquerda = False
-		elif self.pos_x >= tela[0] - self.largura:
-			self.velocidade = abs(self.velocidade) * -1
+		else:
 			self.andando = True
 			self.direita = False
 			self.esquerda = True
@@ -202,7 +207,7 @@ class Bau(Personagem):
 			self.imagem = self.aberto
 
 	def hitbox(self):
-		return pygame.Rect(self.pos_x, self.pos_y, self.largura, self.altura)
+		return pygame.Rect(self.pos_x, self.pos_y, self.largura, 2)
 
 	def desenho(self, lugar):
 		transformado = pygame.transform.scale(self.imagem, (self.largura, self.altura))

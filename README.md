@@ -1,14 +1,31 @@
 # starting
 Aprendendo.
 
-primeiro programa que eu criei e ainda estou fazendo.
-estou usando ele para aprender python e pygame.
+
+
+Primeiro programa que eu criei e ainda estou fazendo.
+Estou usando ele para aprender python e pygame.
+
+
+
+v 0.1.2.a
+- Mudança do Background, bem como os assets das arvores e caixas.
+- Adicionado novas classes para arvores e caixas, bem como seus hitboxes.
+- Adicionado mais um inimigo, mais veloz.
+- Melhorada as colisões de hitbox
+
+- Esqueci de mudar as caixas de dialogo, mas o background foi.
+- Será implementado movimentação vertical dos inimigo, contando com o fator aleatoridade.
+
+
 
 v 0.1.1.a
 - Mudei o sistema de colisão para retangulos (hitboxes) para ficar mais enxuto e poder trabalhar com ataques e defesas.
 - Adicionado mais assets que serão colocados na proxima versão (bem como seus devidos pontos de colisão).
 
 - Ainda falta consertar a renderização das caixas de dialogos e mudar o background (tava sendo feito, mas ficou horrivel e decidi nao upar).
+
+
 
 v 0.1
 - O motor do jogo foi refeito, ficando mais legivel e automatizado.

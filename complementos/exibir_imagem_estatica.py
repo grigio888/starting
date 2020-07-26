@@ -2,20 +2,72 @@ import pygame
 
 class ExibirImagemEstatica():
 
-	def __init__(self, lugar_da_imagem, posicao_x, posicao_y, largura, altura):
+	def __init__(self, lugar_da_imagem, pos_x, pos_y, largura, altura):
 		self.carregando = pygame.image.load(lugar_da_imagem)
 		self.imagem = pygame.transform.scale(self.carregando, (largura, altura))
-		self.posicao_x = posicao_x
-		self.posicao_y = posicao_y
+		self.pos_x = pos_x
+		self.pos_y = pos_y
 		self.largura = largura
 		self.altura = altura
 
 	def desenho(self, lugar):
-		lugar.blit(self.imagem, (self.posicao_x, self.posicao_y))
+		lugar.blit(self.imagem, (self.pos_x, self.pos_y))
 
 class Fundo(ExibirImagemEstatica):
-	def __init__(self, lugar_da_imagem, posicao_x, posicao_y, largura, altura):
-		super().__init__(lugar_da_imagem, posicao_x, posicao_y, largura, altura)
+	def __init__(self, lugar_da_imagem, pos_x, pos_y, largura, altura):
+		super().__init__(lugar_da_imagem, pos_x, pos_y, largura, altura)
+
+class ArvoreGrandeA():
+		
+	def __init__(self, pos_x, pos_y):
+		self.imagem = pygame.image.load('imagens/obstaculos/arvore_grande.png')
+		self.pos_x = pos_x
+		self.pos_y = pos_y
+		self.largura = 128
+		self.altura = 160
 
 	def hitbox(self):
-		return [pygame.Rect(0, 66, 69, 73), pygame.Rect(76, 64, 134, 32), pygame.Rect(109, 52, 67, 10), pygame.Rect(0, 282, 69, 73), pygame.Rect(0, 386, 60, 42), pygame.Rect(69, 429, 104, 35), pygame.Rect(182, 431, 22, 27), pygame.Rect(293, 64, 134, 32), pygame.Rect(325, 52, 67, 10), pygame.Rect(430, 140, 69, 73)]
+		return pygame.Rect(self.pos_x + 37, self.pos_y + 109, 63, 45)
+
+	def desenho(self, lugar):
+		lugar.blit(self.imagem, (self.pos_x, self.pos_y))
+
+class ArvoreGrandeB(ArvoreGrandeA):
+	def __init__(self, pos_x, pos_y):
+		super().__init__(pos_x, pos_y)
+		self.imagem = pygame.image.load('imagens/obstaculos/arvore_grande2.png')
+		self.largura = 128
+		self.altura = 176
+
+	def hitbox(self):
+		return pygame.Rect(self.pos_x + 34, self.pos_y + 125, 65, 45)
+
+class TroncoCortado(ArvoreGrandeA):
+	def __init__(self, pos_x, pos_y):
+		super().__init__(pos_x, pos_y)
+		self.imagem = pygame.image.load('imagens/obstaculos/tronco_cortado.png')
+		self.largura = 80
+		self.altura = 64
+
+	def hitbox(self):
+		return pygame.Rect(self.pos_x + 16, self.pos_y + 3, 75, 47)
+
+class CaixaInteira(ArvoreGrandeA):
+	def __init__(self, pos_x, pos_y):
+		super().__init__(pos_x, pos_y)
+		self.imagem = pygame.image.load('imagens/obstaculos/caixa_inteira.png')
+		self.largura = 64
+		self.altura = 32
+
+	def hitbox(self):
+		return pygame.Rect(self.pos_x, self.pos_y, self.largura, 2)
+
+class CaixaQuebrada(ArvoreGrandeA):
+	def __init__(self, pos_x, pos_y):
+		super().__init__(pos_x, pos_y)
+		self.imagem = pygame.image.load('imagens/obstaculos/caixa_quebrada.png')
+		self.largura = 64
+		self.altura = 32
+
+	def hitbox(self):
+		return pygame.Rect(self.pos_x, self.pos_y, self.largura, 2)
