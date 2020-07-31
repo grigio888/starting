@@ -64,12 +64,14 @@ while not game_over:
                 personagem.pos_x += personagem.velocidade
         if personagem.hitbox().colliderect(inimigo.hitbox()):
             setor = 'game over'
+        if personagem.hitbox().colliderect(inimigo2.hitbox()):
+            setor = 'game over'
         if personagem.hitbox().colliderect(bau.hitbox()):
             setor = 'game win'
-        if inimigo.hitbox().collidelist(lista_de_colisoes) >= 0:
-            inimigo.velocidade *= -1
-        if inimigo2.hitbox().collidelist(lista_de_colisoes) >= 0:
-            inimigo2.velocidade *= -1
+        #if inimigo.hitbox().collidelist(lista_de_colisoes) >= 0:
+            #inimigo.velocidade *= -1
+        #if inimigo2.hitbox().collidelist(lista_de_colisoes) >= 0:
+            #inimigo2.velocidade *= -1
 
         pygame.display.update()
         relogio_de_atualizacao.tick(ponteiro)
@@ -86,6 +88,10 @@ while not game_over:
             if pygame.mouse.get_pressed()[0]:
                 personagem.pos_x = 224
                 personagem.pos_y = 430
+                inimigo.pos_x = 233
+                inimigo.pos_y = 255
+                inimigo2.pos_x = 100
+                inimigo2.pos_y = 150
                 setor = 'comeco'
         if pygame.mouse.get_pos()[0] >= botao_sair.pos_x and pygame.mouse.get_pos()[1] >= botao_sair.pos_y and pygame.mouse.get_pos()[0] <= botao_sair.pos_x + botao_sair.largura and pygame.mouse.get_pos()[1] <= botao_sair.pos_y + botao_sair.altura:
             if pygame.mouse.get_pressed()[0]:
@@ -112,6 +118,10 @@ while not game_over:
             if pygame.mouse.get_pressed()[0]:
                 personagem.pos_x = 224
                 personagem.pos_y = 430
+                inimigo.pos_x = 233
+                inimigo.pos_y = 255
+                inimigo2.pos_x = 100
+                inimigo2.pos_y = 150
                 setor = 'comeco'
         if pygame.mouse.get_pos()[0] >= botao_sair.pos_x and pygame.mouse.get_pos()[1] >= botao_sair.pos_y and pygame.mouse.get_pos()[0] <= botao_sair.pos_x + botao_sair.largura and pygame.mouse.get_pos()[1] <= botao_sair.pos_y + botao_sair.altura:
             if pygame.mouse.get_pressed()[0]:

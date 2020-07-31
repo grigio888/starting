@@ -1,4 +1,5 @@
 import pygame
+import random
 
 from complementos.entidades import *
 from complementos.exibir_imagem_estatica import *
@@ -24,10 +25,10 @@ dialogo_sup = ExibirImagemEstatica('imagens/janelas/dialogo_comeco.png', 100, 10
 
 # -> Variaveis setor == 'comeco':
 # |-> Entidades:
-personagem = Personagem(224, 430, 63, 63, 4)
-inimigo = Inimigo(233, 255, 63, 63, 4)
-inimigo2 = Inimigo(100, 150, 63, 63, 10) 
-bau = Bau(230, 50, 40, 40, 0)
+personagem = Personagem(224, 430, 4)
+inimigo = Inimigo(233, 255, 4)
+inimigo2 = Inimigo(100, 150, 6) 
+bau = Bau(239, 50, 0)
 # |-> Obstaculos:
 pos_arv_x = [-60, -5, -55, 0, 370, 430, 385, 450]
 arv_esq_1 = ArvoreGrandeA(pos_arv_x[3], -70)
@@ -131,14 +132,24 @@ def para_personagem():
     personagem.desenho(tela)
 
 def para_inimigo():
-    inimigo.movimentacao(tela_largura_altura)
+    inimigo.cont_mov += 1
+    if inimigo.cont_mov % 7 == 0:
+        inimigo.aleatoriedade = random.randint(0,21)
     inimigo.contador_frames += 1
     inimigo.animacao()
+    inimigo.movimentacao(lista_de_colisoes)
+    inimigo.rastro_x = inimigo.pos_x
+    inimigo.rastro_y = inimigo.pos_y
     inimigo.desenho(tela)
 
-    inimigo2.movimentacao(tela_largura_altura)
+    inimigo2.cont_mov += 1
+    if inimigo2.cont_mov % 7 == 0:
+        inimigo2.aleatoriedade = random.randint(0,21)
     inimigo2.contador_frames += 1
     inimigo2.animacao()
+    inimigo2.movimentacao(lista_de_colisoes)
+    inimigo2.rastro_x = inimigo.pos_x
+    inimigo2.rastro_y = inimigo.pos_y
     inimigo2.desenho(tela)
 
 def para_bau():
